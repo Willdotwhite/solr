@@ -88,6 +88,18 @@ public class PackageStoreAPI {
     return l;
   }
 
+  public void validateManifest(String manifestFile, Consumer<String> errs) {
+    try {
+      PackageStore.FileType type = packageStore.getType(manifestFile, true);
+      if (type != PackageStore.FileType.FILE) {
+        errs.accept("No such file: " + manifestFile);
+      }
+    } catch (Exception e) {
+      log.error("Error reading file ", e);
+      errs.accept("Error reading file " + manifestFile + " " + e.getMessage());
+    }
+  }
+
   public void validateFiles(List<String> files, boolean validateSignatures, Consumer<String> errs) {
     for (String path : files) {
       try {
