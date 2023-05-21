@@ -268,7 +268,7 @@ public class PackageUtils {
   }
 
   public static String[] validateCollections(String collections[]) {
-    String collectionNameRegex = "^[a-zA-Z0-9_-]*$";
+    String collectionNameRegex = "^[a-zA-Z0-9_.-]*$";
     for (String c : collections) {
       if (c.matches(collectionNameRegex) == false) {
         throw new SolrException(
